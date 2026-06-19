@@ -81,6 +81,15 @@ export const getKPIValue = (stats: any, kpiId: string): number => {
 };
 
 export default function App() {
+  // Theme state
+  const [theme, setTheme] = useState<string>(() => {
+    return localStorage.getItem('analytics_dashboard_theme') || 'sapphire';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('analytics_dashboard_theme', theme);
+  }, [theme]);
+
   // Navigation & Filter states
   const [clients, setClients] = useState<string[]>([]);
   const [selectedClient, setSelectedClient] = useState<string>('');
@@ -760,21 +769,27 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-[#050505] font-sans">
+    <div className={`min-h-screen flex flex-col relative overflow-hidden bg-[#050505] font-sans theme-${theme}`}>
       {/* Background Ambient Glow Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none animate-glow-slow"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-violet-500/5 blur-[120px] pointer-events-none animate-glow-slow delay-2000"></div>
+      <div 
+        className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[120px] pointer-events-none animate-glow-slow"
+        style={{ backgroundColor: 'var(--theme-glow-start, rgba(59, 130, 246, 0.05))' }}
+      ></div>
+      <div 
+        className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full blur-[120px] pointer-events-none animate-glow-slow delay-2000"
+        style={{ backgroundColor: 'var(--theme-glow-end, rgba(139, 92, 246, 0.05))' }}
+      ></div>
 
       {/* Header bar */}
       <header className="border-b border-[var(--border-color)] bg-[#09090c] px-6 py-4 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-gradient-to-tr from-blue-500 to-violet-500 flex items-center justify-center shadow-lg shadow-violet-500/10">
+          <div className="h-10 w-10 rounded-lg bg-gradient-to-tr from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center shadow-lg shadow-violet-500/10">
             <BarChart3 className="h-5 w-5 text-white" />
           </div>
           <div>
             <h1 className="text-lg font-bold text-slate-100 flex items-center gap-2">
               Multi-Client CSV Analytics
-              <span className="text-xs bg-violet-500/10 text-violet-400 font-semibold px-2 py-0.5 rounded-full border border-violet-500/20">
+              <span className="text-xs bg-violet-500/10 text-[var(--color-accent)] font-semibold px-2 py-0.5 rounded-full border border-violet-500/20">
                 Sandbox Mode
               </span>
             </h1>
@@ -785,11 +800,11 @@ export default function App() {
         {/* Client Selector & Tools */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <User className="h-4 w-4 text-violet-400" />
+            <User className="h-4 w-4 text-[var(--color-accent)]" />
             <span className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">Client:</span>
             {clients.length > 0 ? (
               <select
-                className="form-control text-sm font-semibold bg-[#121218] border border-[var(--border-color)] rounded-md px-3 py-1.5 focus:border-violet-500 outline-none"
+                className="form-control text-sm font-semibold bg-[#121218] border border-[var(--border-color)] rounded-md px-3 py-1.5 focus:border-[var(--color-accent)] outline-none"
                 value={selectedClient}
                 onChange={(e) => {
                   setSelectedClient(e.target.value);
@@ -824,6 +839,30 @@ export default function App() {
               </button>
             </div>
           )}
+
+          {/* Dynamic Theme Selector */}
+          <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full p-1 ml-2">
+            <button 
+              onClick={() => setTheme('sapphire')}
+              className={`h-4.5 w-4.5 rounded-full bg-gradient-to-tr from-blue-500 to-violet-500 border ${theme === 'sapphire' ? 'border-white scale-110' : 'border-transparent opacity-60 hover:opacity-100'} transition-all`}
+              title="Sapphire Aura"
+            />
+            <button 
+              onClick={() => setTheme('emerald')}
+              className={`h-4.5 w-4.5 rounded-full bg-gradient-to-tr from-sky-400 to-emerald-400 border ${theme === 'emerald' ? 'border-white scale-110' : 'border-transparent opacity-60 hover:opacity-100'} transition-all`}
+              title="Emerald Vibe"
+            />
+            <button 
+              onClick={() => setTheme('ruby')}
+              className={`h-4.5 w-4.5 rounded-full bg-gradient-to-tr from-rose-500 to-pink-500 border ${theme === 'ruby' ? 'border-white scale-110' : 'border-transparent opacity-60 hover:opacity-100'} transition-all`}
+              title="Sunset Ruby"
+            />
+            <button 
+              onClick={() => setTheme('amber')}
+              className={`h-4.5 w-4.5 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 border ${theme === 'amber' ? 'border-white scale-110' : 'border-transparent opacity-60 hover:opacity-100'} transition-all`}
+              title="Midnight Amber"
+            />
+          </div>
         </div>
       </header>
 

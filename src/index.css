@@ -29,6 +29,59 @@
   --transition-spring: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Theme Scopes */
+.theme-sapphire {
+  --color-primary: #3b82f6;
+  --color-accent: #8b5cf6;
+  --theme-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  --theme-gradient-hover: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --theme-bg-gradient-start: rgba(59, 130, 246, 0.05);
+  --theme-bg-gradient-end: rgba(139, 92, 246, 0.02);
+  --theme-shadow-color: rgba(124, 58, 237, 0.15);
+  --theme-shadow-color-hover: rgba(124, 58, 237, 0.3);
+  --theme-glow-start: rgba(59, 130, 246, 0.05);
+  --theme-glow-end: rgba(139, 92, 246, 0.05);
+}
+
+.theme-emerald {
+  --color-primary: #0ea5e9;
+  --color-accent: #10b981;
+  --theme-gradient: linear-gradient(135deg, #0284c7 0%, #059669 100%);
+  --theme-gradient-hover: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%);
+  --theme-bg-gradient-start: rgba(14, 165, 233, 0.05);
+  --theme-bg-gradient-end: rgba(16, 185, 129, 0.02);
+  --theme-shadow-color: rgba(16, 185, 129, 0.15);
+  --theme-shadow-color-hover: rgba(16, 185, 129, 0.3);
+  --theme-glow-start: rgba(14, 165, 233, 0.05);
+  --theme-glow-end: rgba(16, 185, 129, 0.05);
+}
+
+.theme-ruby {
+  --color-primary: #ef4444;
+  --color-accent: #ec4899;
+  --theme-gradient: linear-gradient(135deg, #dc2626 0%, #db2777 100%);
+  --theme-gradient-hover: linear-gradient(135deg, #ef4444 0%, #ec4899 100%);
+  --theme-bg-gradient-start: rgba(239, 68, 68, 0.05);
+  --theme-bg-gradient-end: rgba(236, 72, 153, 0.02);
+  --theme-shadow-color: rgba(236, 72, 153, 0.15);
+  --theme-shadow-color-hover: rgba(236, 72, 153, 0.3);
+  --theme-glow-start: rgba(239, 68, 68, 0.05);
+  --theme-glow-end: rgba(236, 72, 153, 0.05);
+}
+
+.theme-amber {
+  --color-primary: #f59e0b;
+  --color-accent: #f97316;
+  --theme-gradient: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+  --theme-gradient-hover: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  --theme-bg-gradient-start: rgba(245, 158, 11, 0.05);
+  --theme-bg-gradient-end: rgba(249, 115, 22, 0.02);
+  --theme-shadow-color: rgba(249, 115, 22, 0.15);
+  --theme-shadow-color-hover: rgba(249, 115, 22, 0.3);
+  --theme-glow-start: rgba(245, 158, 11, 0.05);
+  --theme-glow-end: rgba(249, 115, 22, 0.05);
+}
+
 /* Base resets & scrollbar */
 * {
   box-sizing: border-box;
@@ -170,16 +223,16 @@ h1, h2, h3, h4 {
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.02) 100%);
+  background: linear-gradient(135deg, var(--theme-bg-gradient-start) 0%, var(--theme-bg-gradient-end) 100%);
 }
 
 .bg-gradient-to-tr {
-  background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+  background: var(--theme-gradient);
 }
 
 /* Interactive Elements (Pill CTAs) */
 .btn-primary {
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  background: var(--theme-gradient);
   color: var(--text-bright);
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: var(--font-display);
@@ -190,14 +243,14 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.15);
+  box-shadow: 0 4px 14px var(--theme-shadow-color);
   transition: var(--transition-spring);
 }
 
 .btn-primary:hover {
   transform: scale(1.03) translateY(-1px);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  box-shadow: 0 6px 20px var(--theme-shadow-color-hover);
+  background: var(--theme-gradient-hover);
 }
 
 .btn-primary:active {
